@@ -1,5 +1,9 @@
 // api/index.js
-const serverless = require("serverless-http");
-const app = require("../src/app");
+const express = require("express");
+const app = express();
 
-module.exports = serverless(app);
+app.get("/", (req, res) => {
+  res.send("Hello from Express!");
+});
+
+module.exports = app; // Vercel can wrap this automatically
