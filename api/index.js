@@ -1,8 +1,14 @@
-// api/index.js
-const app = require("../app"); // Import your Express app
-const serverless = require("serverless-http"); // Wrapper for Vercel
+const express = require("express");
+const serverless = require("serverless-http");
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
-module.exports = (req, res) => {
-  const handler = serverless(app);
-  return handler(req, res);
-};
+const authRoutes = require("../routes/auth.routes"); // adjust path
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+app.use("/auth", authRoutes);
+
+module.exports = app;
+module.exports.handler = serverless(app);
